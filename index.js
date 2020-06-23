@@ -1,18 +1,18 @@
-import { getInput, setFailed } from '@actions/core'
-import { getOctokit } from '@actions/github'
+const core = require('@actions/core')
+const actions = require('@actions/github')
 
 async function run() {
   try {
     const inputs = {
-      token: getInput('token'),
-      repository: getInput('repository'),
-      eventType: getInput('event-type'),
-      clientPayload: getInput('client-payload')
+      token: core.getInput('token'),
+      repository: core.getInput('repository'),
+      eventType: core.getInput('event-type'),
+      clientPayload: core.getInput('client-payload')
     }
 
     const [owner, repo] = inputs.repository.split('/')
 
-    const octokit = getOctokit(inputs.token)
+    const octokit = actions.getOctokit(inputs.token)
 
     await octokit.repos.createDispatchEvent({
       owner: owner,
@@ -21,7 +21,7 @@ async function run() {
       client_payload: JSON.parse(inputs.clientPayload)
     })
   } catch (error) {
-    setFailed(error.message)
+    core.setFailed(error.message)
   }
 }
 

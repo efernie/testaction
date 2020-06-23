@@ -1,4 +1,4 @@
-name: 'Max Repository Dispatch'
+name: 'Repository Dispatch'
 description: 'Send a repository dispatch event'
 author: 'maxwellhealth'
 inputs:
